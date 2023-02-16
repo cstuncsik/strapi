@@ -24,7 +24,7 @@ KeyValuePair.propTypes = {
   value: propTypes.string.isRequired,
 };
 
-const Information = () => {
+const Information = ({ before }) => {
   const { formatMessage, formatRelativeTime } = useIntl();
   const { initialData, isCreatingEntry } = useCMEditViewDataManager();
   const currentTime = useRef(Date.now());
@@ -49,17 +49,21 @@ const Information = () => {
   const created = getFieldInfo('createdAt', 'createdBy');
 
   return (
-    <Stack spacing={2}>
-      <Typography variant="sigma" textColor="neutral600" id="additional-information">
-        {formatMessage({
-          id: getTrad('containers.Edit.information'),
-          defaultMessage: 'Information',
-        })}
-      </Typography>
+    <Stack spacing={6}>
+      <Stack spacing={2}>
+        <Typography variant="sigma" textColor="neutral600" id="additional-information">
+          {formatMessage({
+            id: getTrad('containers.Edit.information'),
+            defaultMessage: 'Information',
+          })}
+        </Typography>
 
-      <Box paddingBottom={4}>
-        <Divider />
-      </Box>
+        <Box>
+          <Divider />
+        </Box>
+      </Stack>
+
+      {before}
 
       <Stack spacing={4}>
         <Stack spacing={2} as="dl">
@@ -100,6 +104,14 @@ const Information = () => {
       </Stack>
     </Stack>
   );
+};
+
+Information.defaultProps = {
+  before: null,
+};
+
+Information.propTypes = {
+  before: propTypes.node,
 };
 
 export default Information;
